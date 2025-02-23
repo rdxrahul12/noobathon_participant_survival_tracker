@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squid Game Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="landing-body">
+    <div class="landing-page">
+        <div class="logo-container">
+            <div class="squid-logo">
+                <div class="shape triangle"></div>
+                <div class="shape circle"></div>
+                <div class="shape square"></div>
+            </div>
+        </div>
+        <h1 class="game-title">Squid Game</h1>
+        <h2 class="game-subtitle">Participant Survival Tracker</h2>
+        <p class="game-description">Track the fate of 456 players as they compete in deadly children's games for the ultimate prize.</p>
+        <a href="dashboard.html" class="glow-button" id="start-tracking">Start Tracking</a>
+        
+        <div class="player-count">
+            <div class="count-item">
+                <span class="count-number">456</span>
+                <span class="count-label">Players</span>
+            </div>
+            <div class="count-item">
+                <span class="count-number">₩45.6B</span>
+                <span class="count-label">Prize</span>
+            </div>
+        </div>
+        <button class="contact-button">
+            <i class="fas fa-envelope"></i>
+            Contact Front Man
+        </button>
+        <div id="contactPopup" class="contact-popup">
+            <div class="popup-content">
+                <button class="close-popup">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="popup-header">
+                    <i class="fas fa-mask"></i>
+                    <h2>Contact the Front Man</h2>
+                </div>
+                <div class="popup-body">
+                    <p>All communications must go through official channels.</p>
+                    <p>For urgent matters, use the following methods:</p>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> Emergency Line: [REDACTED]</li>
+                        <li><i class="fas fa-building"></i> Headquarters: [CLASSIFIED]</li>
+                        <li><i class="fas fa-envelope"></i> Secure Mail: ▇▇▇▇▇@squidgame.kr</li>
+                    </ul>
+                    <div class="warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Unauthorized contact attempts will be severely penalized.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Existing logo animation code
+            const startButton = document.getElementById('start-tracking');
+            startButton.addEventListener('mouseenter', () => {
+                document.querySelector('.squid-logo').style.transform = 'scale(1.1) rotate(5deg)';
+            });
+            startButton.addEventListener('mouseleave', () => {
+                document.querySelector('.squid-logo').style.transform = 'scale(1) rotate(0deg)';
+            });
+
+            // Contact popup functionality
+            const contactButton = document.querySelector('.contact-button');
+            const contactPopup = document.getElementById('contactPopup');
+            const closePopup = document.querySelector('.close-popup');
+
+            function openPopup() {
+                contactPopup.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            function closePopupHandler() {
+                contactPopup.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            contactButton.addEventListener('click', () => {
+                openPopup();
+                // Add click sound effect
+                const audio = new Audio('data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA/+M4wAAAAAAAAAAAAEluZm8AAAAPAAAAAwAAABQADw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8VFRUVFRUVFRUVFRUVFRUVFRUVFRUVFR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eJycnJycnJycnJycnJycnJycnJycnJycwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5QkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1RUVFRUVFRUVFRUVFRUVFRUVFRUVFRUXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1mZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm9vb29vb29vb29vb29vb29vb29vb29vb29veHh4eHh4eHh4eHh4eHh4eHh4eHh4eHiBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYqKioqKioqKioqKioqKioqKioqKioqKk5OTk5OTk5OTk5OTk5OTk5OTk5OTk5OcnJycnJycnJycnJycnJycnJycnJycnJylpaWlpaWlpaWlpaWlpaWlpaWlpaWlpa6urq6urq6urq6urq6urq6urq6urq6ura2tra2tra2tra2tra2tra2tra2tra2t/+MYxAAAAANIAAAAAExBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/4xjEIAAADSAAAAAATEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/jGMRAAAADSAAAAABMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+                audio.play();
+            });
+
+            // Close popup when clicking the close button
+            closePopup.addEventListener('click', closePopupHandler);
+
+            // Close popup when clicking outside
+            contactPopup.addEventListener('click', (e) => {
+                if (e.target === contactPopup) {
+                    closePopupHandler();
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && contactPopup.classList.contains('active')) {
+                    closePopupHandler();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

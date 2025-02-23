@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squid Game Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="landing-page" id="landing">
+        <div class="logo-container">
+            <div class="squid-logo">
+                <div class="shape triangle"></div>
+                <div class="shape circle"></div>
+                <div class="shape square"></div>
+            </div>
+        </div>
+        <h1>Squid Game</h1>
+        <h2>Participant Survival Tracker</h2>
+        <button id="start-tracking" class="glow-button">Start Tracking</button>
+        <div class="hidden-card" id="recruiter-card">
+            <div class="card-inner">
+                <div class="card-front"></div>
+                <div class="card-back"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard hidden" id="dashboard">
+        <nav class="dashboard-nav">
+            <div class="nav-section">
+                <div class="piggy-bank">
+                    <i class="fas fa-piggy-bank"></i>
+                    <span id="prize-pool">₩45.6B</span>
+                </div>
+                <div class="game-status">
+                    <span id="players-alive" class="status-item">
+                        <i class="fas fa-user"></i> Survivors: 456
+                    </span>
+                    <span id="current-round" class="status-item">
+                        <i class="fas fa-circle"></i> Round: 1
+                    </span>
+                </div>
+            </div>
+            
+            <div class="search-section">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="number" id="search-participant" placeholder="Search by number (1-456)" min="1" max="456">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-status="all">All Players</button>
+                    <button class="filter-btn" data-status="alive">Survivors</button>
+                    <button class="filter-btn" data-status="eliminated">Eliminated</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-content">
+            <div class="content-wrapper">
+                <div class="participants-section">
+                    <div class="participants-header">
+                        <h2>Participants</h2>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="participants-grid" id="participants-grid">
+                        <!-- Participants will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="statistics-panel">
+                        <h3>Game Statistics</h3>
+                        <div class="stat-cards">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-skull"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Elimination Rate</h4>
+                                    <span id="elimination-rate">0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Prize Per Player</h4>
+                                    <span id="prize-per-player">₩100M</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="survival-chart"></canvas>
+                            <canvas id="elimination-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="round-info-panel">
+                        <h3>Current Round</h3>
+                        <div class="round-details" id="round-details">
+                            <!-- Round details will be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Participant Profile Modal -->
+    <div class="modal" id="profile-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="profile-header">
+                <div class="profile-number">
+                    <h2>Participant <span id="profile-number"></span></h2>
+                    <span id="profile-status" class="status-badge"></span>
+                </div>
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h3><i class="fas fa-book"></i> Backstory</h3>
+                    <div class="backstory" id="profile-backstory"></div>
+                </div>
+                <div class="profile-section">
+                    <h3><i class="fas fa-chart-line"></i> Progress</h3>
+                    <div class="rounds-progress" id="round-progress">
+                        <!-- Round progress will be added dynamically -->
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h3><i class="fas fa-info-circle"></i> Statistics</h3>
+                    <div class="player-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Rounds Survived</span>
+                            <span class="stat-value" id="rounds-survived">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Survival Probability</span>
+                            <span class="stat-value" id="survival-probability">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg: Recruiter's Card -->
+    <div class="recruiter-card" id="recruiter-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="card-symbol"></div>
+            </div>
+            <div class="card-back">
+                <p>For a chance to participate in the game, call:</p>
+                <h3>☎ 1-234-567-8901</h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/participants.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

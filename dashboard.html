@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squid Game Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+    <nav class="top-nav">
+        <div class="nav-left">
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="home-link">
+                <span>Squid Game Tracker</span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <div class="game-status">
+                <span id="players-alive" class="status-item">
+                    <i class="fas fa-user"></i> Survivors: 456
+                </span>
+                <span id="current-round" class="status-item">
+                    <i class="fas fa-circle"></i> Round: 1
+                </span>
+            </div>
+            <div class="piggy-bank">
+                <i class="fas fa-piggy-bank"></i>
+                <span id="prize-pool">₩45.6B</span>
+            </div>
+            <button class="theme-toggle">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="close-sidebar" id="close-sidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="logo-container">
+                <svg class="animated-logo" viewBox="0 0 100 100" width="50" height="50">
+                    <circle class="logo-circle" cx="50" cy="50" r="45" fill="none" stroke="#FF0A6C" stroke-width="2"/>
+                    <polygon class="logo-triangle" points="50,25 75,75 25,75" fill="none" stroke="#FF0A6C" stroke-width="2"/>
+                    <rect class="logo-square" x="35" y="35" width="30" height="30" fill="none" stroke="#FF0A6C" stroke-width="2"/>
+                    <circle class="logo-dot" cx="50" cy="50" r="3" fill="#FF0A6C"/>
+                </svg>
+                <span class="logo-text">Squid Game</span>
+            </div>
+            <div class="round-info-panel">
+                <h3>Current Round</h3>
+                <div class="round-details" id="round-details">
+                    <!-- Round details will be added dynamically -->
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-row">
+                        <i class="fas fa-users"></i>
+                        <span class="stat-label">Survivors:</span>
+                        <span class="stat-value" id="sidebar-survivors">456</span>
+                    </div>
+                    <div class="stat-row">
+                        <i class="fas fa-skull"></i>
+                        <span class="stat-label">Eliminated:</span>
+                        <span class="stat-value" id="sidebar-eliminated">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="stat-label">Survival Rate:</span>
+                        <span class="stat-value" id="sidebar-survival-rate">100%</span>
+                    </div>
+                    <div class="stat-row">
+                        <i class="fas fa-piggy-bank"></i>
+                        <span class="stat-label">Prize Per Player:</span>
+                        <span class="stat-value" id="sidebar-prize">₩100M</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div class="content-wrapper">
+                <div class="participants-section">
+                    <div class="participants-header">
+                        <h2>Participants</h2>
+                        <div class="header-actions">
+                            <input type="number" id="search-participant" placeholder="Enter participant ID (1-456)" min="1" max="456">
+                            <button id="search-btn" class="search-button">
+                                <i class="fas fa-search"></i>
+                                Find
+                            </button>
+                            <input type="number" id="eliminate-participant" placeholder="Enter ID to eliminate" min="1" max="456">
+                            <button id="eliminate-btn" class="eliminate-button">
+                                <i class="fas fa-skull"></i>
+                                Eliminate
+                            </button>
+                            <button class="stats-button" id="view-stats-button">
+                                <i class="fas fa-chart-line"></i>
+                                View Statistics
+                            </button>
+                            <div class="view-toggle">
+                                <button class="view-btn active" data-view="grid">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn" data-view="list">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-status="all">All Players</button>
+                        <button class="filter-btn" data-status="alive">Survivors</button>
+                        <button class="filter-btn" data-status="eliminated">Eliminated</button>
+                    </div>
+                    <div class="participants-grid" id="participants-grid">
+                        <!-- Participants will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="statistics-panel">
+                        <h3>Game Statistics</h3>
+                        <div class="stat-cards">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-skull"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Elimination Rate</h4>
+                                    <span id="elimination-rate">0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h4>Prize Per Player</h4>
+                                    <span id="prize-per-player">₩100M</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="survival-chart"></canvas>
+                            <canvas id="elimination-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Participant Profile Modal -->
+    <div class="modal" id="profile-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="profile-header">
+                <div class="profile-number">
+                    <h2>Participant <span id="profile-number"></span></h2>
+                    <span id="profile-status" class="status-badge"></span>
+                </div>
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+            <div class="profile-details">
+                <div class="profile-section">
+                    <h3><i class="fas fa-book"></i> Backstory</h3>
+                    <div class="backstory" id="profile-backstory"></div>
+                </div>
+                <div class="profile-section">
+                    <h3><i class="fas fa-chart-line"></i> Progress</h3>
+                    <div class="rounds-progress" id="round-progress">
+                        <!-- Round progress will be added dynamically -->
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h3><i class="fas fa-info-circle"></i> Statistics</h3>
+                    <div class="player-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Rounds Survived</span>
+                            <span class="stat-value" id="rounds-survived">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Survival Probability</span>
+                            <span class="stat-value" id="survival-probability">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Modal -->
+    <div class="modal" id="stats-modal">
+        <div class="modal-content stats-modal-content">
+            <span class="close-modal" id="close-stats-modal">&times;</span>
+            <h2>Game Statistics</h2>
+            <div class="charts-container">
+                <div class="chart-wrapper">
+                    <h3>Survival Trend</h3>
+                    <canvas id="survival-chart-modal"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>Eliminations per Round</h3>
+                    <canvas id="elimination-chart-modal"></canvas>
+                </div>
+            </div>
+            <div class="detailed-stats" id="detailed-stats">
+                <!-- Detailed stats will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/participants.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
