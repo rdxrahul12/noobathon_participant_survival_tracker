@@ -77,4 +77,4 @@ A dynamic web application that simulates and tracks participants in a Squid Game
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
-Made with 💖 by Team SG2
+Made with 💖 by Team Optimus !
