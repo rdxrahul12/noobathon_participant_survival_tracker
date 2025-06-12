@@ -65,16 +65,4 @@ A dynamic web application that simulates and tracks participants in a Squid Game
 - Social sharing features
 - Achievement system
 
-## 🖥️ Browser Support
-
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
 Made with 💖 by Team Optimus !
